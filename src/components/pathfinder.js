@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 export default function Home() {
   return (
     <div>
+      <Helmet>
+        <title>Pathfinder</title>
+        <link href="/css/stylePathfinder.css" rel="stylesheet" />
+      </Helmet>
       <h1>[Company Website]</h1>
       <nav>
-        <Link to="About">About</Link>
-        <Link to="Events">Events</Link>
-        <Link to="Contact">Contact</Link>
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
       </nav>
     </div>
   );

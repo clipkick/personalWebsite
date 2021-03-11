@@ -9,7 +9,6 @@ function App({ login }) {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/haha" element={<Haha />} />
         <Route path="/pathfinder" element={<Pathfinder />} />
       </Routes>
     </div>
