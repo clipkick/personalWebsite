@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
       <nav>
         <Link to="/Pathfinder">Pathfinder</Link>
       </nav>
+      <Outlet />
     </div>
   );
 }

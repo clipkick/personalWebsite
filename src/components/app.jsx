@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Home, { Haha } from './home';
+import Home from './home';
 import Pathfinder from './pathfinder';
 
-function App({ login }) {
+function App() {
   return (
     <div>
       <Routes>

@@ -1,7 +1,12 @@
 import express from 'express';
 import sass from 'node-sass-middleware';
 import path from 'path';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import Helmet from 'react-helmet';
+import { StaticRouter } from 'react-router-dom/server';
 
+import App from './src/components/app';
 import config from './config';
 
 const server = express();
@@ -20,16 +25,26 @@ server.set('view engine', 'ejs');
 // static folder where images and thrid party javascript and css are placed
 server.use(express.static('static'));
 
-/* 
-sends to the ejs template for basic html and bundle.js
-react then renders and using react-helmet changes the css for each section
-*/
+/* sends to the ejs template for basic html and bundle.js
+react then renders and using react-helmet changes the css for each section */
 server.get('/*', (req, res) => {
-  res.render('index', {});
+  const content = renderToString(
+    <StaticRouter location={req.url} context={{}}>
+      <App />
+    </StaticRouter>
+  );
+  const helmet = Helmet.renderStatic();
+  // content, title: helmet.title.toString(), css: helmet.link.toString()
+  res.render('index', {
+    content,
+    title: helmet.title.toString(),
+    link: helmet.link.toString(),
+    meta: helmet.meta.toString(),
+  });
 });
 
 /* starts server with arguments in a config file, not included as has certian logins
-   included is a config.dummy.js file that does not contain sensitive data*/
+   included is a config.dummy.js file that does not contain sensitive data */
 server.listen(config.port, config.host, () => {
   console.log('Express listening on port: ', config.port);
 });
