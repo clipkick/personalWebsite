@@ -1,0 +1,43 @@
+{
+  "name": "personalwebsite",
+  "version": "1.0.0",
+  "description": "This has 3 sections, my info, a pathfinder section for my campaigns and a simple chat program",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ./server.js --exec babel-node --ignore static/",
+    "dev": "webpack -w --mode development"
+  },
+  "author": "Adam Sanderson",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "history": "^5.0.0",
+    "mongoose": "^5.11.20",
+    "node-sass-middleware": "^0.11.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router": "^6.0.0-beta.0",
+    "react-router-dom": "^6.0.0-beta.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/eslint-parser": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "babel-node": "0.0.1-security",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^7.21.0",
+    "eslint-plugin-react": "^7.22.0",
+    "nodemon": "^2.0.7",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0"
+  }
+}
