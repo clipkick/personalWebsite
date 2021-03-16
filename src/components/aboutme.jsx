@@ -52,16 +52,22 @@ export default function AboutMe() {
             />
           </div>
           <p>
-            So you want to know more about me? Alright. The first real spark I found for programming
-            was back in highschool. I will always remember when a student said &quot;but it&apos;s
-            the excat same as theirs and theirs works&quot;. The teacher jumped up on the table and
-            explained that computers process things literaly. Not in those words and not calmly.
+            So you want to know more about me? Alright. I come from a small town in northeastern
+            Ontario. From there I studied computer science at Lakehead University for 5 years where
+            I had 2 co-ops. Shortly after I graduated was hired at Dougallmedia.
           </p>
           <p>
-            I then went on to study at Lakehead University. There I learned many things, including
-            partying and drinking and of course coding. I went through two co-ops while I was
-            studying, one was at a company called GRK Fasteners where they were going through an
-            expansion and creating US based company and website.
+            When I started at Dougallmedia there was one other programmer there that showed me the
+            ropes. After about two years he left the company and Dougallmedia decided to not hire
+            anyone else. It took me some time to get used to working alone, but I managed it
+            eventually.
+          </p>
+          <p>
+            When covid hit, Dougallmedia laied off many employees, including me. After that I fell
+            into a funk for a few months until my family helped me out of it. After that I became
+            much more motivated and started learning new languages, specically Javascript with
+            Node.js and React. Due to my new found motivation I have re-discovered my passion for
+            programming.
           </p>
         </div>
       </div>
