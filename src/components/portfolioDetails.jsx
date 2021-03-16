@@ -43,9 +43,9 @@ const PortfolioDetails = ({ close, details }) => {
           <div className="col-lg-4 portfolio-info">
             <h3>Project information</h3>
             <ul>
-              <li>
+              {/* <li>
                 <strong>Project date</strong>: 01 March, 2020
-              </li>
+              </li> */}
               <li>
                 <strong>Project URL</strong>: <a href={details.link}>{details.link}</a>
               </li>
