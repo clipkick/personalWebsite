@@ -14,7 +14,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  ignorePatterns: ['node_modules/', 'dist/', 'bundle.js'],
+  ignorePatterns: ['node_modules/', 'dist/', 'static/tParty/', 'static/js/'],
   rules: {
     indent: ['error', 2],
     quotes: ['error', 'single'],

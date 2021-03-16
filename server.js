@@ -5,8 +5,10 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 import { StaticRouter } from 'react-router-dom/server';
+import { json as bodyJson } from 'body-parser';
+import Routes from './routes/index';
 
-import App from './src/components/app';
+import App from './src/app';
 import config from './config';
 
 const server = express();
@@ -16,14 +18,26 @@ server.use(
   sass({
     src: path.join(__dirname, 'sass'),
     dest: path.join(__dirname, 'static/css'),
+    debug: false,
+    outputStyle: 'compressed',
+    prefix: '/css',
   })
 );
-
+console.log(path.join(__dirname, 'sass'), path.join(__dirname, 'static/css'));
 // uses ejs for html accross all components
 server.set('view engine', 'ejs');
 
 // static folder where images and thrid party javascript and css are placed
 server.use(express.static('static'));
+
+server.use(bodyJson());
+//server.use(bodyParser.urlencoded({ extended: false }));
+
+server.use(Routes);
+
+server.get('/api*', (req, res) => {
+  res.render('chat');
+});
 
 /* sends to the ejs template for basic html and bundle.js
 react then renders and using react-helmet changes the css for each section */
