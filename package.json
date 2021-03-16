@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon ./server.js --exec babel-node --ignore static/ -e js,jsx",
     "dev": "webpack -w --mode development",
+    "prod": "webpack --mode production",
     "eslint": "eslint"
   },
   "author": "Adam Sanderson",
