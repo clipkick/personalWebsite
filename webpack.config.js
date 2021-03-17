@@ -2,7 +2,6 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.jsx',
-  watch: true,
   output: {
     path: path.resolve('static/js'),
     filename: 'bundle.js',

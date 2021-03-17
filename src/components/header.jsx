@@ -36,14 +36,7 @@ export default function Header({ isTop }) {
     <header id="header" className={headerClass}>
       <div className="container">
         <h1>
-          <Link
-            to="/"
-            onClick={(event) => {
-              mobileClick(event, width);
-            }}
-          >
-            Adam Sanderson
-          </Link>
+          <Link to="/">Adam Sanderson</Link>
         </h1>
         <h2>
           I&apos;m a passionate <span>full stack developer</span> from Thunder Bay, Canada

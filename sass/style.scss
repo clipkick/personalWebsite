@@ -1022,6 +1022,34 @@ section {
   }
 }
 
+/*--------------------------------------------------------------
+# Credits
+--------------------------------------------------------------*/
+.credits {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 15px;
+  text-align: right;
+  font-size: 10px;
+  color: #fff;
+  z-index: 999999;
+  a {
+    color: #18d26e;
+    transition: 0.3s;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+  @media (max-width: 992px) {
+    text-align: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
 @keyframes animate-loading {
   0% {
     transform: rotate(0deg);

@@ -3,7 +3,15 @@ import { Helmet } from 'react-helmet';
 import { useLocation, Outlet } from 'react-router-dom';
 
 import Header from '../components/header';
+import Credits from '../components/credits';
 
+const displayCredits = () => {
+  const loaction = useLocation().pathname;
+  if (loaction !== '/' && loaction !== '/portfolio') {
+    return <Credits />;
+  }
+  return '';
+};
 export default function Home() {
   let isTop = false;
   const loaction = useLocation().pathname;
@@ -18,6 +26,7 @@ export default function Home() {
       </Helmet>
       <Header isTop={isTop} />
       <Outlet />
+      {displayCredits()}
     </>
   );
 }
