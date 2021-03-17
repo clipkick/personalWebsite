@@ -63,7 +63,7 @@ export default function AboutMe() {
             eventually.
           </p>
           <p>
-            When covid hit, Dougallmedia laied off many employees, including me. After that I fell
+            When covid hit, Dougallmedia laid off many employees, including me. After that I fell
             into a funk for a few months until my family helped me out of it. After that I became
             much more motivated and started learning new languages, specically Javascript with
             Node.js and React. Due to my new found motivation I have re-discovered my passion for
