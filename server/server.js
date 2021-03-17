@@ -8,7 +8,7 @@ import { StaticRouter } from 'react-router-dom/server';
 import { json as bodyJson } from 'body-parser';
 import Routes from './routes/index';
 
-import App from './src/app';
+import App from '../client/src/app';
 import config from './config';
 
 const server = express();
@@ -17,13 +17,13 @@ const server = express();
 server.use(
   sass({
     src: path.join(__dirname, 'sass'),
-    dest: path.join(__dirname, 'static/css'),
+    dest: path.join(__dirname, '../static/css'),
     debug: false,
     outputStyle: 'compressed',
     prefix: '/css',
   })
 );
-console.log(path.join(__dirname, 'sass'), path.join(__dirname, 'static/css'));
+console.log(path.join(__dirname, '/sass'), path.join(__dirname, '../static/css'));
 // uses ejs for html accross all components
 server.set('view engine', 'ejs');
 

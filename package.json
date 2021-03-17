@@ -4,9 +4,12 @@
   "description": "This has 3 sections, my info, a pathfinder section for my campaigns and a simple chat program",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server.js --exec babel-node --ignore static/ -e js,jsx",
+    "start": "nodemon ./server/server.js --exec babel-node --ignore server/static/ -e js,jsx",
     "dev": "webpack -w --mode development",
     "prod": "webpack --mode production",
+    "buildServer": "babel -d ./build/server ./server",
+    "buildClient": "babel -d ./build/client ./client",
+    "startProd": "node ./build/server/server.js",
     "eslint": "eslint"
   },
   "author": "Adam Sanderson",

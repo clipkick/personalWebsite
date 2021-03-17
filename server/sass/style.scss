@@ -1038,11 +1038,11 @@ section {
   a {
     color: #18d26e;
     transition: 0.3s;
+    &:hover {
+      color: #fff;
+    }
   }
 
-  &:hover {
-    color: #fff;
-  }
   @media (max-width: 992px) {
     text-align: center;
     padding: 10px;
