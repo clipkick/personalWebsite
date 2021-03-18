@@ -7,6 +7,7 @@
     "start": "nodemon ./server/server.js --exec babel-node --ignore server/static/ -e js,jsx",
     "dev": "webpack -w --mode development",
     "prod": "webpack --mode production",
+    "scss": "node-sass ./server/sass -o ./static/css && node-sass -w ./server/sass -o ./static/css",
     "buildServer": "babel -d ./build/server ./server",
     "buildClient": "babel -d ./build/client ./client",
     "startProd": "node ./build/server/server.js",

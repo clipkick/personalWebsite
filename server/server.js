@@ -1,6 +1,4 @@
 import express from 'express';
-import sass from 'node-sass-middleware';
-import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
@@ -14,6 +12,10 @@ import config from './config';
 const server = express();
 
 // uses sass style sheets
+/* // can't use node-sass on server so i created a scss script for npm in package.json. 
+// Can compile css files before uploading to server. Can move imports and uncomment otherwise
+import sass from 'node-sass-middleware';
+import path from 'path';
 server.use(
   sass({
     src: path.join(__dirname, 'sass'),
@@ -22,8 +24,7 @@ server.use(
     outputStyle: 'compressed',
     prefix: '/css',
   })
-);
-console.log(path.join(__dirname, '/sass'), path.join(__dirname, '../static/css'));
+); */
 // uses ejs for html accross all components
 server.set('view engine', 'ejs');
 
