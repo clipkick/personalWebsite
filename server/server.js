@@ -6,6 +6,7 @@ import { StaticRouter } from 'react-router-dom/server';
 import { json as bodyJson } from 'body-parser';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
+import path from 'path';
 
 import Routes from './routes/index';
 import App from '../client/src/app';
@@ -46,10 +47,12 @@ mongodbConnection();
 server.set('view engine', 'ejs');
 
 // static folder where images and thrid party javascript and css are placed
-server.use(express.static('./static'));
+// due to my wonky server setup needs to be hardcoded location causing copy commands needed
+server.use(express.static(path.join(__dirname, '../static')));
 
-// static folder where images and thrid party javascript and css are placed
-server.set('views', './views');
+// need to set the views folder to specific location
+// due to my wonky server setup needs to be hardcoded location causing copy commands needed
+server.set('views', path.join(__dirname, '../views'));
 
 server.use(bodyJson());
 //server.use(bodyParser.urlencoded({ extended: false }));
