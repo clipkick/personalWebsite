@@ -4,27 +4,44 @@ import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 import { StaticRouter } from 'react-router-dom/server';
 import { json as bodyJson } from 'body-parser';
-import Routes from './routes/index';
+import mongoose from 'mongoose';
+import helmet from 'helmet';
 
+import Routes from './routes/index';
 import App from '../client/src/app';
 import config from './config';
 
 const server = express();
 
-// uses sass style sheets
-/* // can't use node-sass on server so i created a scss script for npm in package.json. 
-// Can compile css files before uploading to server. Can move imports and uncomment otherwise
-import sass from 'node-sass-middleware';
-import path from 'path';
+// helmet setup
 server.use(
-  sass({
-    src: path.join(__dirname, 'sass'),
-    dest: path.join(__dirname, '../static/css'),
-    debug: false,
-    outputStyle: 'compressed',
-    prefix: '/css',
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        // eslint-disable-next-line quotes
+        'script-src': ["'self'", "'unsafe-eval'"],
+      },
+    },
   })
-); */
+);
+
+//mongoose connection
+const mongodbConnection = async () => {
+  try {
+    await mongoose.connect(config.mongodbUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      user: config.mongodbUser,
+      pass: config.mongodbPass,
+    });
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.log('Failed to connect to MongoDB', error);
+  }
+};
+mongodbConnection();
+
 // uses ejs for html accross all components
 server.set('view engine', 'ejs');
 
@@ -36,9 +53,8 @@ server.use(bodyJson());
 
 server.use(Routes);
 
-server.get('/api*', (req, res) => {
-  res.render('chat');
-});
+// could render a node js error as this would be a 404 to the api
+// server.get('/api*', (req, res) => {});
 
 /* sends to the ejs template for basic html and bundle.js
 react then renders and using react-helmet changes the css for each section */
@@ -48,8 +64,9 @@ server.get('/*', (req, res) => {
       <App />
     </StaticRouter>
   );
+
   const helmet = Helmet.renderStatic();
-  // content, title: helmet.title.toString(), css: helmet.link.toString()
+
   res.render('index', {
     content,
     title: helmet.title.toString(),
