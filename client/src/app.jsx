@@ -5,7 +5,7 @@ import Home from './pages/home';
 import About from './pages/about';
 import Resume from './pages/resume';
 import Portfolio from './pages/portfolio';
-import Pathfinder from './pages/pathfinder';
+import Pathfinder from './pathfinder/pages/pathfinder';
 import Contact from './pages/contact';
 
 function App() {

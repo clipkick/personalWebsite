@@ -37,7 +37,7 @@ const PortfolioItems = ({ stateFunction }) => {
                       { id: 1, src: 'personalWebsite/portfolio.jpg' },
                       { id: 2, src: 'personalWebsite/about.jpg' },
                     ],
-                    link: 'https://github.com/clipkick/personalWebsite',
+                    links: [{ id: 0, href: 'https://github.com/clipkick/personalWebsite' }],
                     description: `This is my personal website. Thank you for visiting.
                     It has been built starting with a template from bootstrapmade.
                     I then took the HTML template apart and created this website using Node.js and React.
@@ -81,7 +81,10 @@ const PortfolioItems = ({ stateFunction }) => {
                       { id: 1, src: 'radioWebsites/rock94.jpg' },
                       { id: 2, src: 'radioWebsites/ckprthunderbay.jpg' },
                     ],
-                    link: 'https://ckpr.com',
+                    links: [
+                      { id: 0, href: 'https://ckpr.com' },
+                      { id: 1, href: 'https://rock94.com' },
+                    ],
                     description: `These are a set of websites created while working at Dougallmedia.
                     In total there are 4 websites for radio stations and 2 for television stations.
                     They all use a similar template to keep branding of Dougallmedia, 
@@ -122,7 +125,7 @@ const PortfolioItems = ({ stateFunction }) => {
                   details={{
                     title: 'Chat room app',
                     images: [{ id: 0, src: 'chatApp/chat1.png' }],
-                    link: 'http://sanderson.zapto.org:3000',
+                    links: [{ id: 0, href: 'http://sanderson.zapto.org:3000' }],
                     description: `This is a really simple chat room app.
                     It has not been styled and has room for improvement.
                     It has been created with Node.js using socket.io for

@@ -41,14 +41,16 @@ const PortfolioDetails = ({ close, details }) => {
           </div>
 
           <div className="col-lg-4 portfolio-info">
-            <h3>Project information</h3>
+            <h3>Website Links</h3>
             <ul>
               {/* <li>
                 <strong>Project date</strong>: 01 March, 2020
               </li> */}
-              <li>
-                <strong>Project URL</strong>: <a href={details.link}>{details.link}</a>
-              </li>
+              {details.links.map((link) => (
+                <li key={link.id}>
+                  <a href={link.href}>{link.href}</a>
+                </li>
+              ))}
             </ul>
 
             <p>{details.description}</p>
