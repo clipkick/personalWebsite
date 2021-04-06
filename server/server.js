@@ -1,12 +1,12 @@
+/* eslint-disable quotes */
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 import { StaticRouter } from 'react-router-dom/server';
-import { json as bodyJson } from 'body-parser';
+import bodyParser, { json as bodyJson } from 'body-parser';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
-import path from 'path';
 
 import Routes from './routes/index';
 import App from '../client/src/app';
@@ -18,18 +18,18 @@ const server = express();
 server.use(
   helmet({
     contentSecurityPolicy: {
-      directives:{
-        'default-src': [ "'self'" ],
-        'base-uri': [ "'self'" ],
+      directives: {
+        'default-src': ["'self'"],
+        'base-uri': ["'self'"],
         'block-all-mixed-content': [],
-        'font-src': [ "'self'", 'https:', 'data:' ],
-        'frame-ancestors': [ "'self'" ],
-        'img-src': [ "'self'", 'data:' ],
-        'object-src': [ "'none'" ],
-        'script-src': [ "'self'", "'unsafe-eval'" ],
-        'script-src-attr': [ "'none'" ],
-        'style-src': [ "'self'", 'https:', "'unsafe-inline'" ],
-      } ,
+        'font-src': ["'self'", 'https:', 'data:'],
+        'frame-ancestors': ["'self'"],
+        'img-src': ["'self'", 'data:'],
+        'object-src': ["'none'"],
+        'script-src': ["'self'", "'unsafe-eval'"],
+        'script-src-attr': ["'none'"],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+      },
     },
   })
 );
@@ -56,12 +56,8 @@ server.set('view engine', 'ejs');
 // static folder where images and thrid party javascript and css are placed
 server.use(express.static('static'));
 
-// need to set the views folder to specific location
-// due to my wonky server setup needs to be hardcoded location causing copy commands needed
-// server.set('views', path.join(__dirname, '../views'));
-
+server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyJson());
-//server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(Routes);
 

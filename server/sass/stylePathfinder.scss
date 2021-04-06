@@ -1,3 +1,187 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+
 body {
-  background-color: blue;
+  font-family: 'Open Sans', sans-serif;
+  background: #f0f0f0;
+  color: #000;
+  position: relative;
+  transition: none;
+  &::before {
+    content: '';
+    background: #f0f0f0 url('/img/pathfinder-bg.jpg') center no-repeat;
+    position: fixed;
+    background-size: cover;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+}
+* {
+  transition: ease-in-out 0.3s;
+}
+a {
+  color: #000427;
+  text-decoration: none;
+
+  &:hover {
+    color: #ff0000;
+    text-decoration: none;
+  }
+}
+img {
+  max-width: 100%;
+}
+.linkSpan {
+  color: #000427;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: #ff0000;
+    text-decoration: none;
+  }
+}
+/*--------------------------------------------------------------
+# navigation
+--------------------------------------------------------------*/
+.navbar {
+  width: 100%;
+  background-color: #f0f0f0;
+  height: 40px;
+  transition: ease-in-out 0.3s;
+
+  ul {
+    display: flex;
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: 10px;
+    padding: 0;
+    margin-bottom: 0;
+    li {
+      &::before {
+        content: '|';
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      &:first-child {
+        &::before {
+          content: '';
+          padding-left: 0;
+        }
+      }
+      a.active {
+        color: red;
+      }
+    }
+    @media (max-width: 650px) {
+      display: none;
+    }
+  }
+  .mobile-nav-toggle {
+    color: #000;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+    line-height: 0;
+    position: fixed;
+    right: 6px;
+    top: 6px;
+    @media (max-width: 650px) {
+      display: block;
+    }
+  }
+  @media (max-width: 650px) {
+    width: 40px;
+    margin-left: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+  &.mobile {
+    overflow: hidden;
+    height: 400px;
+    max-height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 999;
+    margin-top: 0;
+    .mobile-nav-toggle {
+      color: #fff;
+    }
+    ul {
+      display: block;
+      position: absolute;
+      top: 55px;
+      right: 15px;
+      bottom: 45px;
+      left: 15px;
+      padding: 10px 0;
+      overflow-y: auto;
+      transition: 0.3s;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      li {
+        padding: 12px 20px;
+        a {
+          color: #fff;
+          font-size: 16px;
+          position: relative;
+        }
+        &::before {
+          content: '';
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  margin-top: 20px;
+  .container {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 30px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Maps
+--------------------------------------------------------------*/
+.mapImage {
+  max-width: 100%;
+  &.thumbnail {
+    height: 100px;
+    width: 100px;
+  }
+}
+.mapList {
+  // border: 1px solid #fff;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/*--------------------------------------------------------------
+# Campaign
+--------------------------------------------------------------*/
+.campaign {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  text-align: right;
+  font-size: 10px;
+  color: #fff;
+  z-index: 999999;
+  background: rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 992px) {
+    text-align: center;
+    padding: 10px;
+  }
 }

@@ -7,6 +7,8 @@ import Resume from './pages/resume';
 import Portfolio from './pages/portfolio';
 import Pathfinder from './pathfinder/pages/pathfinder';
 import Contact from './pages/contact';
+import Maps from './pathfinder/pages/maps';
+import Details from './pathfinder/pages/details';
 
 function App() {
   return (
@@ -18,7 +20,10 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
-        <Route path="/pathfinder" element={<Pathfinder />} />
+        <Route path="/pathfinder" element={<Pathfinder />}>
+          <Route path="maps" element={<Maps />}></Route>
+          <Route path="details" element={<Details />} />
+        </Route>
       </Routes>
     </>
   );
