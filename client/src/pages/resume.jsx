@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import ResumeItems from '../components/resumeItems';
 
 export default function Resume() {
-  const [resumeClass, setClass] = useState('resume');
-
-  useEffect(() => {
-    setTimeout(() => {
-      setClass('resume section-show');
-    }, 100);
-  }, []);
   return (
-    <section id="resume" className={resumeClass}>
+    <section id="resume" className="resume">
       <Helmet>
         <title>My Resume</title>
       </Helmet>

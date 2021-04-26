@@ -24,9 +24,9 @@ server.use(
         'block-all-mixed-content': [],
         'font-src': ["'self'", 'https:', 'data:'],
         'frame-ancestors': ["'self'"],
-        'img-src': ["'self'", 'data:'],
+        'img-src': ["'self'", 'data:', 'https://sp.tinymce.com'],
         'object-src': ["'none'"],
-        'script-src': ["'self'", "'unsafe-eval'"],
+        'script-src': ["'self'", "'unsafe-eval'", 'https://cdn.tiny.cloud'],
         'script-src-attr': ["'none'"],
         'style-src': ["'self'", 'https:', "'unsafe-inline'"],
       },
@@ -67,6 +67,7 @@ server.use(Routes);
 /* sends to the ejs template for basic html and bundle.js
 react then renders and using react-helmet changes the css for each section */
 server.get('/*', (req, res) => {
+  console.log(req.ip);
   const content = renderToString(
     <StaticRouter location={req.url} context={{}}>
       <App />

@@ -7,7 +7,6 @@ import Interests from '../components/interests';
 import Skills from '../components/skills';
 
 export default function About() {
-  const [sectionClass, setClass] = useState('about');
   const [about, setAboutMe] = useState(null);
   const [error, setError] = useState(null);
 
@@ -24,15 +23,10 @@ export default function About() {
     fetchData();
   }, [fetchData]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setClass('about section-show');
-    }, 100);
-  }, []);
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>;
   if (!about) return <h1>Loading...</h1>;
   return (
-    <section id="about" className={sectionClass}>
+    <section id="about" className="about">
       <Helmet>
         <title>About</title>
       </Helmet>

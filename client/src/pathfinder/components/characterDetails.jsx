@@ -2,14 +2,13 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
-import { useNavigate } from 'react-router-dom';
 
 import Loading from './loading';
 import { Context as CampaignContext } from '../components/campaignContext';
 
 const MapDetails = ({ map, setMap, setEdit }) => {
   const { campaign, editPermissions, setMapData } = useContext(CampaignContext);
-  const navigate = useNavigate();
+
   // map = campaign.maps.find((campaignMap) => campaignMap._id == map._id);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ const MapDetails = ({ map, setMap, setEdit }) => {
       {editPermissions.map
         ? getButton('btn btn-dark', () => setEdit(true), 'Edit Map', 'left')
         : ''}
-      {getButton('btn btn-light', () => navigate(-1), 'Return to all maps', 'right')}
+      {getButton('btn btn-light', () => setMap(null), 'Return to all maps', 'right')}
       <div className="d-flex justify-content-center">
         <h2>{map.title}</h2>
       </div>
@@ -47,7 +46,7 @@ const MapDetails = ({ map, setMap, setEdit }) => {
       ) : (
         <Loading />
       )}
-      {getButton('btn btn-light', () => navigate(-1), 'Return to all maps')}
+      {getButton('btn btn-light', () => setMap(null), 'Return to all maps')}
     </>
   );
 };

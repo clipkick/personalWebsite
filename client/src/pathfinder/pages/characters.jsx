@@ -3,36 +3,40 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import CampaignSelector from '../components/campaignSelector';
 import { Context as CampaignContext } from '../components/campaignContext';
-import MapDetails from '../components/mapDetails';
-import MapAdd from '../components/mapAdd';
-import MapEdit from '../components/mapEdit';
+import CharacterDetails from '../components/mapDetails';
+import CharacterAdd from '../components/characterAdd';
+import CharacterEdit from '../components/CharacterEdit';
 import Loading from '../components/loading';
 
-const Maps = () => {
-  const { campaign, error, getError, editPermissions, setMapData } = useContext(CampaignContext);
-  const [mapDetail, setMapDetail] = useState(null);
+const Characters = () => {
+  const { campaign, error, getError, editPermissions, setCharData } = useContext(CampaignContext);
+  const [charDetail, setCharDetail] = useState(null);
   const [edit, setEdit] = useState(false);
-
   const location = useLocation().pathname;
 
   const navigate = useNavigate();
 
-  if (location != '/pathfinder/maps/details' && location != '/pathfinder/maps/add' && edit)
+  if (
+    location != '/pathfinder/characters/details' &&
+    location != '/pathfinder/characters/add' &&
+    edit
+  )
     setEdit(false);
 
   useEffect(() => {
-    if (!campaign._id) navigate('/pathfinder/maps');
-    if (campaign._id) setMapData();
+    if (location == '/pathfinder/characters/details' && !campaign.title)
+      navigate('/pathfinder/characters');
+    if (campaign._id) setCharData();
   }, [campaign]);
-
+  //--------
   // sets content so surrunding html is not copied many times
   let contents;
   if (getError()) {
     contents = <pre>{JSON.stringify(error, null, 2)}</pre>;
-  } else if (edit && mapDetail && location == '/pathfinder/maps/details') {
-    contents = <MapEdit map={mapDetail} setEdit={setEdit} setMap={setMapDetail} />;
-  } else if (mapDetail && location == '/pathfinder/maps/details') {
-    contents = <MapDetails map={mapDetail} setMap={setMapDetail} setEdit={setEdit} />;
+  } else if (edit && charDetail && location == '/pathfinder/characters/details') {
+    contents = <CharacterEdit char={charDetail} setEdit={setEdit} setChar={setCharDetail} />;
+  } else if (charDetail && location == '/pathfinder/characters/details') {
+    contents = <CharacterDetails char={charDetail} setChar={setCharDetail} setEdit={setEdit} />;
   } else if (!campaign.title) {
     contents = (
       <>
@@ -40,28 +44,27 @@ const Maps = () => {
         <CampaignSelector />
       </>
     );
-  } else if (!campaign.maps) {
+  } else if (!campaign.characters) {
     contents = <Loading />;
   } else {
     contents = (
       <>
         <div className="row mb-2">
-          {campaign.maps.map((map) => {
+          {campaign.characters.map((char) => {
             return (
               <div
-                key={map._id}
+                key={char._id}
                 onClick={() => {
-                  setMapDetail(map);
+                  setCharDetail(char);
                   navigate('details');
-                  //setMapDetail(map);
                 }}
-                className="mapList col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
+                className="charList col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
               >
                 <div className="border d-flex align-items-center justify-content-between ps-1">
-                  {map.title}
+                  {char.name}
                   <img
-                    className="mapImage thumbnail align-right"
-                    src={'/img/pathfinder/' + campaign._id + '/' + map.fileName}
+                    className="charImage thumbnail align-right"
+                    src={'/img/pathfinder/' + campaign._id + '/' + char.characterImage}
                   />
                 </div>
               </div>
@@ -69,7 +72,7 @@ const Maps = () => {
           })}
         </div>
         {edit ? (
-          <MapAdd setEdit={setEdit} />
+          <CharacterAdd setEdit={setEdit} />
         ) : editPermissions.map ? (
           <Link
             to="add"
@@ -78,7 +81,7 @@ const Maps = () => {
               setEdit(true);
             }}
           >
-            Add new Map
+            Add new Character
           </Link>
         ) : (
           ''
@@ -88,13 +91,13 @@ const Maps = () => {
   }
 
   return (
-    <section className="maps">
+    <section className="chars">
       <div className="container">
-        <h1 className="pageTitle">Maps - {campaign.title}</h1>
+        <h1 className="pageTitle">Characters - {campaign.title}</h1>
         {contents}
       </div>
     </section>
   );
 };
 
-export default Maps;
+export default Characters;

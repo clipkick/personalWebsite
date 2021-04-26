@@ -8,7 +8,7 @@ export const Context = createContext({});
 
 export const Provider = (props) => {
   // Initial values are obtained from the props
-  const { campaign: initialCampaign, children } = props;
+  const { campaign: initialCampaign, editPermissions, children } = props;
 
   // Use State to keep the values
   const [campaign, setCampaign] = useState(initialCampaign);
@@ -30,7 +30,7 @@ export const Provider = (props) => {
   const setCampaignData = async () => {
     try {
       if (!campaign.description) {
-        const response = await axios.get(`/api/campaign/${campaign._id}`);
+        const response = await axios.get(`/api/${campaign._id}/details`);
         setCampaign(
           new CampaignClass({
             ...campaign,
@@ -53,7 +53,7 @@ export const Provider = (props) => {
   const setMapData = async (mapId = null) => {
     try {
       if (!campaign.maps) {
-        const response = await axios.get(`/api/maps/${campaign._id}`);
+        const response = await axios.get(`/api/${campaign._id}/map`);
         setCampaign(
           new CampaignClass({
             ...campaign,
@@ -62,9 +62,10 @@ export const Provider = (props) => {
         );
       } else if (mapId) {
         try {
-          const mapIndex = campaign.maps.findIndex((map) => map._id == mapId);
-          if (mapIndex > -1 && !campaign.maps[mapIndex].description) {
-            const mapResponse = await axios.get(`/api/map/${campaign.maps[mapIndex]._id}`);
+          const { index: mapIndex, map } = await campaign.getMapAndIndexById(mapId);
+          // const mapIndex = campaign.maps.findIndex((map) => map._id == mapId);
+          if (mapIndex > -1 && !map.description) {
+            const mapResponse = await axios.get(`/api/${campaign._id}/map/${map._id}`);
 
             setCampaign(
               new CampaignClass({
@@ -73,6 +74,49 @@ export const Provider = (props) => {
                   ...campaign.maps.slice(0, mapIndex),
                   mapResponse.data,
                   ...campaign.maps.slice(mapIndex + 1),
+                ],
+              })
+            );
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    } catch (error) {
+      setError({ error, getCount: 0 });
+    }
+  };
+
+  /**
+   *
+   * Checks to see if character data has been set
+   * If not retreives map data from server and saves in context
+   * can set basic details without id and full details with id
+   * @param {*} charId
+   */
+  const setCharData = async (charId = null) => {
+    try {
+      if (!campaign.characters) {
+        const response = await axios.get(`/api/${campaign._id}/character`);
+        setCampaign(
+          new CampaignClass({
+            ...campaign,
+            characters: response.data,
+          })
+        );
+      } else if (charId) {
+        try {
+          const { index: charIndex, char } = await campaign.getCharacterAndIndexById(charId);
+          if (charIndex > -1 && !campaign.getCharacterSheet(char)) {
+            const mapResponse = await axios.get(`/api/${campaign._id}/character/${char._id}`);
+
+            setCampaign(
+              new CampaignClass({
+                ...campaign,
+                characters: [
+                  ...campaign.characters.slice(0, charIndex),
+                  mapResponse.data,
+                  ...campaign.characters.slice(charIndex + 1),
                 ],
               })
             );
@@ -100,11 +144,10 @@ export const Provider = (props) => {
   };
 
   //sets permissions for editing
-  const editPermissions = {
-    map: true,
-  };
-  //cannot change permissions through code, might have to change if dynamic
-  Object.freeze(editPermissions);
+  // const editPermissions = {
+  //   map: true,
+  //   character:true,
+  // };
 
   // Make the context object:
   const campaignContext = {
@@ -116,6 +159,7 @@ export const Provider = (props) => {
     setCampaignData,
     setError,
     setMapData,
+    setCharData,
   };
 
   // pass the value in provider and return
@@ -124,6 +168,7 @@ export const Provider = (props) => {
 
 Provider.propTypes = {
   campaign: PropTypes.object,
+  editPermissions: PropTypes.object,
   children: PropTypes.any,
 };
 

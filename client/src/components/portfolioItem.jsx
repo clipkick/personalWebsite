@@ -17,10 +17,10 @@ const PortfolioItem = ({ stateFunction, item }) => {
           <h4>{item.title}</h4>
           <Popup
             onOpen={() => {
-              stateFunction('portfolio');
+              stateFunction('portfolio hide');
             }}
             onClose={() => {
-              stateFunction('portfolio section-show');
+              stateFunction('portfolio');
             }}
             trigger={
               <a href="#" className="portfolio-details-lightbox" title="Portfolio Details">

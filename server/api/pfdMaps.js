@@ -14,6 +14,7 @@ export const getMapById = async (id) => {
   let map = await Map.findById(id);
   return map;
 };
+
 export const addMap = async (mapFile, mapData) => {
   const map = new Map(mapData);
   const newFile = await fs.readFile(mapFile.destination + mapFile.filename);
@@ -28,6 +29,7 @@ export const addMap = async (mapFile, mapData) => {
 };
 
 export const updateMap = async (mapId, mapData, mapFile) => {
+  // console.log(mapData);
   // let map = new Map(mapData);
   if (mapFile) {
     const newFile = await fs.readFile(mapFile.destination + mapFile.filename);
@@ -38,6 +40,7 @@ export const updateMap = async (mapId, mapData, mapFile) => {
 
     mapData.fileName = mapFile.originalname;
   }
-  const map = Map.findByIdAndUpdate(mapId, mapData, { new: true });
+  const map = await Map.findByIdAndUpdate(mapId, mapData, { new: true, useFindAndModify: false });
+  console.log(map);
   return map;
 };

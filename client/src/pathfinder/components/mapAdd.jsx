@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Editor } from '@tinymce/tinymce-react';
 
 import { Context as CampaignContext } from './campaignContext';
 
@@ -15,7 +16,7 @@ const mapAdd = ({ setEdit }) => {
       // posts data, gets new map from the response and adds it to the maps array then returns to maps
       const data = new FormData(e.target);
       data.append('campaignId', campaign._id);
-      const response = await axios.post(`/api/maps/${campaign._id}`, data);
+      const response = await axios.post(`/api/${campaign._id}/map`, data);
       campaign.maps.push(response.data);
       setEdit(false);
     } catch (error) {
@@ -39,16 +40,33 @@ const mapAdd = ({ setEdit }) => {
         </div>
         <div className="form-group">
           <label htmlFor="descriptionText">Description:</label>
-          <textarea
+          {/* <textarea
             name="description"
             className="form-control"
             style={{ height: '120px' }}
             id="descriptionText"
-          ></textarea>
+          ></textarea> */}
+          <Editor
+            apiKey="ykvskhqy0toczlrzgdad9bbrn2etsrisenrm4iarmppfn7m8"
+            init={{ height: 300 }}
+            id="descriptionText"
+            textareaName="description"
+            plugins="code"
+            toolbar="undo redo | styleselect | 
+          bold italic | alignleft aligncenter alignright alignjustify | 
+          bullist numlist outdent indent | code"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="mapFile">Map File:</label>
-          <input type="file" name="map" id="mapFile" className="form-control" required></input>
+          <input
+            type="file"
+            name="map"
+            id="mapFile"
+            className="form-control"
+            accept="image/*"
+            required
+          ></input>
         </div>
         <input type="submit" value="Add New Map" className="btn btn-primary" />
         <button

@@ -22,11 +22,6 @@ export default function Portfolio() {
     fetchData();
   }, [fetchData]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setClass('portfolio section-show');
-    }, 100);
-  }, []);
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>;
   if (!portfolioItems) return <h1>Loading...</h1>;
   return (

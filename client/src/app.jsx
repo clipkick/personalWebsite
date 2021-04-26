@@ -9,6 +9,7 @@ import Pathfinder from './pathfinder/pages/pathfinder';
 import Contact from './pages/contact';
 import Maps from './pathfinder/pages/maps';
 import Details from './pathfinder/pages/details';
+import Characters from './pathfinder/pages/characters';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Route>
         <Route path="/pathfinder" element={<Pathfinder />}>
-          <Route path="maps" element={<Maps />}></Route>
+          <Route path="maps*" element={<Maps />}></Route>
+          <Route path="characters*" element={<Characters />} />
           <Route path="details" element={<Details />} />
         </Route>
       </Routes>

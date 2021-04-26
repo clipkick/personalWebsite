@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 
 const Contact = () => {
-  const [contactClass, setClass] = useState('contact');
-
-  useEffect(() => {
-    setTimeout(() => {
-      setClass('contact section-show');
-    }, 100);
-  }, []);
   const submitForm = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -41,7 +34,7 @@ const Contact = () => {
     }
   };
   return (
-    <section id="contact" className={contactClass}>
+    <section id="contact" className="contact">
       <Helmet>
         <title>Contact Me</title>
       </Helmet>

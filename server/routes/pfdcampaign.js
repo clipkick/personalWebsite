@@ -15,9 +15,9 @@ app.route('/api/campaign').get(async (req, res) => {
   }
 });
 
-app.route('/api/campaign/:id').get(async (req, res) => {
+app.route('/api/:campaignId/details').get(async (req, res) => {
   try {
-    const campaignData = await getCampaignById(req.params.id);
+    const campaignData = await getCampaignById(req.params.campaignId);
     res.statusCode = 200;
     res.send(campaignData);
   } catch (error) {

@@ -18,7 +18,7 @@ const MapEdit = ({ map, setEdit, setMap }) => {
       const data = new FormData(e.target);
       data.append('campaignId', campaign._id);
 
-      const response = await axios.put(`/api/${campaign._id}/map/${map._id}`, data);
+      const response = await axios.put(`/api/map/${map._id}`, data);
       const { index: mapIndex } = await campaign.getMapAndIndexById(map._id);
 
       campaign.maps = [
@@ -59,7 +59,6 @@ const MapEdit = ({ map, setEdit, setMap }) => {
         <Editor
           apiKey="ykvskhqy0toczlrzgdad9bbrn2etsrisenrm4iarmppfn7m8"
           initialValue={map.description}
-          id="descriptionText"
           init={{ height: 300 }}
           textareaName="description"
           plugins="code"
@@ -70,13 +69,7 @@ const MapEdit = ({ map, setEdit, setMap }) => {
       </div>
       <div className="form-group">
         <label htmlFor="mapFile">Map File (only needed if replacing):</label>
-        <input
-          type="file"
-          name="map"
-          id="mapFile"
-          accept="image/*"
-          className="form-control"
-        ></input>
+        <input type="file" name="map" id="mapFile" className="form-control"></input>
       </div>
       <input type="submit" value="Edit Map" className="btn btn-primary" />
       <button
