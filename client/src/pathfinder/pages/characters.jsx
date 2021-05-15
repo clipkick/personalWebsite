@@ -5,7 +5,7 @@ import CampaignSelector from '../components/campaignSelector';
 import { Context as CampaignContext } from '../components/campaignContext';
 import CharacterDetails from '../components/mapDetails';
 import CharacterAdd from '../components/characterAdd';
-import CharacterEdit from '../components/CharacterEdit';
+import CharacterEdit from '../components/characterEdit';
 import Loading from '../components/loading';
 
 const Characters = () => {
