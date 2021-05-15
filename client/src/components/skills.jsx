@@ -33,7 +33,11 @@ export default function Skills({ skills }) {
       bar.style.width = bar.getAttribute('aria-valuenow') + '%';
     });
   }
-  const leftSkills = skills.splice(0, skills.length / 2);
+
+  const half = Math.ceil(skills.length / 2);
+  const leftSkills = skills.slice(0, half);
+  const rightSkills = skills.slice(-half);
+
   return (
     <div className="skills container">
       <Waypoint onEnter={SkillsLoad} />
@@ -44,16 +48,10 @@ export default function Skills({ skills }) {
       <div className="row skills-content">
         <div className="col-lg-6">
           <Skill sideSkills={leftSkills} />
-          {/* <Skill name={'HTML'} percent={100} />
-          <Skill name={'CSS'} percent={90} />
-          <Skill name={'Javascript'} percent={80} /> */}
         </div>
 
         <div className="col-lg-6">
-          <Skill sideSkills={skills} />
-          {/* <Skill name={'.net'} percent={90} />
-          <Skill name={'SQL'} percent={80} />
-          <Skill name={'Mongodb'} percent={70} /> */}
+          <Skill sideSkills={rightSkills} />
         </div>
       </div>
     </div>
