@@ -59,11 +59,20 @@ server.set('view engine', 'ejs');
 server.use(express.static('static'));
 
 //forces website to https in case http is called for
-server.use(function (request, response, next) {
-  if (config.ENV != 'development' && !request.secure) {
-    return response.redirect('https://' + request.headers.host + request.url);
+server.use((req, res, next) => {
+  if (config.ENV != 'development' && !req.secure) {
+    return res.redirect('https://' + req.headers.host + req.url);
   }
 
+  next();
+});
+
+server.use((req, res, next) => {
+  let logData = `date: ${new Date().toLocaleString()}, page: ${req.url}, IP: ${req.ip}`;
+  console.log(logData);
+  const log = fs.createWriteStream('log.txt', { flags: 'a' });
+  log.write(logData + '\n');
+  log.end();
   next();
 });
 
@@ -78,7 +87,6 @@ server.use(Routes);
 /* sends to the ejs template for basic html and bundle.js
 react then renders and using react-helmet changes the css for each section */
 server.get('/*', (req, res) => {
-  console.log(req.ip);
   const content = renderToString(
     <StaticRouter location={req.url} context={{}}>
       <App />
