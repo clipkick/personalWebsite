@@ -7,6 +7,8 @@ import { StaticRouter } from 'react-router-dom/server';
 import bodyParser, { json as bodyJson } from 'body-parser';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
+import https from 'https';
+import fs from 'fs';
 
 import Routes from './routes/index';
 import App from '../client/src/app';
@@ -56,6 +58,15 @@ server.set('view engine', 'ejs');
 // static folder where images and thrid party javascript and css are placed
 server.use(express.static('static'));
 
+//forces website to https in case http is called for
+server.use(function (request, response, next) {
+  if (config.ENV != 'development' && !request.secure) {
+    return response.redirect('https://' + request.headers.host + request.url);
+  }
+
+  next();
+});
+
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyJson());
 
@@ -86,6 +97,21 @@ server.get('/*', (req, res) => {
 
 /* starts server with arguments in a config file, not included as has certian logins
    included is a config.dummy.js file that does not contain sensitive data */
+// server.listen(config.port, config.host, () => {
+//   console.log('Express listening on port: ', config.port);
+// });
+https
+  .createServer(
+    {
+      key: fs.readFileSync('c:/Certbot/live/sanderson.zapto.org/privkey.pem'),
+      cert: fs.readFileSync('c:/Certbot/live/sanderson.zapto.org/fullchain.pem'),
+    },
+    server
+  )
+  .listen(config.sslPort, () => {
+    console.log('Express ssl listening on port: ', config.sslPort);
+  });
+
 server.listen(config.port, config.host, () => {
   console.log('Express listening on port: ', config.port);
 });
